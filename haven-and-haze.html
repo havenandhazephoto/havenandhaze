@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven & Haze | Wedding Photography & Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF6;
+    --stone: #C5B8A8;
+    --deep: #2C2420;
+    --mid: #6B5C52;
+    --accent: #A8896C;
+    --light-stone: #E8E0D6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--warm-white);
+    color: var(--deep);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 60px;
+    mix-blend-mode: normal;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(253,250,246,0.96);
+    backdrop-filter: blur(8px);
+    padding: 16px 60px;
+    border-bottom: 1px solid var(--light-stone);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--warm-white);
+    text-decoration: none;
+    transition: color 0.4s;
+  }
+  nav.scrolled .nav-logo { color: var(--deep); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav.scrolled .nav-links a { color: var(--mid); }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    min-height: 700px;
+    background: linear-gradient(160deg, #3D2E28 0%, #1E1512 60%, #2C2420 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(168,137,108,0.18) 0%, transparent 65%);
+  }
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 1.2s ease both;
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    color: var(--warm-white);
+    line-height: 1.0;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--stone);
+  }
+  .hero-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(197,184,168,0.7);
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s ease both;
+  }
+  .hero-cta {
+    margin-top: 52px;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s ease both;
+  }
+  .btn {
+    display: inline-block;
+    padding: 16px 44px;
+    border: 1px solid rgba(197,184,168,0.5);
+    color: var(--warm-white);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+    cursor: pointer;
+    background: transparent;
+  }
+  .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--warm-white);
+  }
+  .btn-dark {
+    border-color: var(--accent);
+    color: var(--deep);
+  }
+  .btn-dark:hover { background: var(--deep); border-color: var(--deep); color: var(--warm-white); }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s 1.4s ease both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--stone));
+    animation: scrollPulse 2s infinite;
+  }
+  .scroll-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--deep);
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  /* ABOUT */
+  .about {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--mid);
+    margin-top: 28px;
+    font-weight: 300;
+  }
+  .about-visual {
+    position: relative;
+    height: 500px;
+  }
+  .about-card {
+    position: absolute;
+    background: var(--deep);
+    color: var(--stone);
+    padding: 40px;
+    width: 280px;
+  }
+  .about-card:first-child { top: 0; right: 0; }
+  .about-card:last-child { bottom: 0; left: 0; background: var(--accent); color: var(--warm-white); }
+  .about-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .about-card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    opacity: 0.8;
+  }
+
+  /* SERVICES */
+  .services-section { background: var(--warm-white); }
+  .services-inner { max-width: 1200px; margin: 0 auto; }
+  .services-header { text-align: center; margin-bottom: 80px; }
+  .services-header p {
+    max-width: 540px;
+    margin: 20px auto 0;
+    color: var(--mid);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: var(--cream);
+    padding: 52px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: #EDE5DA; }
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 28px;
+    display: block;
+  }
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+  .service-card p {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* PACKAGES */
+  .packages-section { background: var(--deep); }
+  .packages-inner { max-width: 1200px; margin: 0 auto; }
+  .packages-header { text-align: center; margin-bottom: 80px; }
+  .packages-header .section-label { color: var(--stone); }
+  .packages-header .section-title { color: var(--warm-white); }
+  .packages-header p { color: rgba(197,184,168,0.7); margin-top: 16px; font-size: 0.85rem; letter-spacing: 0.05em; }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .pkg-card {
+    border: 1px solid rgba(197,184,168,0.2);
+    padding: 44px 32px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .pkg-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .pkg-card.featured {
+    border-color: var(--accent);
+    background: rgba(168,137,108,0.08);
+  }
+  .pkg-featured-badge {
+    position: absolute;
+    top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--warm-white);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    white-space: nowrap;
+  }
+  .pkg-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--warm-white);
+    margin-bottom: 8px;
+  }
+  .pkg-subtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 32px;
+  }
+  .pkg-from {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 4px;
+  }
+  .pkg-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 32px;
+    line-height: 1;
+  }
+  .pkg-features {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+  .pkg-features li {
+    font-size: 0.78rem;
+    color: rgba(197,184,168,0.75);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(197,184,168,0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .pkg-features li::before {
+    content: '—';
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 0.7rem;
+  }
+  .pkg-cta {
+    display: block;
+    text-align: center;
+    padding: 12px 24px;
+    border: 1px solid rgba(197,184,168,0.3);
+    color: var(--stone);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .pkg-cta:hover, .pkg-card.featured .pkg-cta {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--warm-white);
+  }
+
+  /* TEAM */
+  .team-section { background: var(--cream); }
+  .team-inner { max-width: 1100px; margin: 0 auto; }
+  .team-header { margin-bottom: 72px; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .team-card { text-align: center; }
+  .team-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--stone);
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--warm-white);
+    font-weight: 300;
+    position: relative;
+    overflow: hidden;
+  }
+  .team-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(168,137,108,0.4);
+  }
+  .team-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--deep);
+    margin-bottom: 6px;
+  }
+  .team-role {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .team-bio {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* CONTACT */
+  .contact-section { background: var(--warm-white); }
+  .contact-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .contact-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--deep);
+    margin-bottom: 28px;
+  }
+  .contact-info h2 em { font-style: italic; color: var(--accent); }
+  .contact-info p {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--mid);
+    margin-bottom: 40px;
+  }
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .contact-item-icon {
+    font-size: 1rem;
+    color: var(--accent);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .contact-item-content { }
+  .contact-item-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 3px;
+  }
+  .contact-item-value {
+    font-size: 0.88rem;
+    color: var(--deep);
+    font-weight: 300;
+  }
+  .contact-item-value a {
+    color: var(--deep);
+    text-decoration: none;
+  }
+  .contact-item-value a:hover { color: var(--accent); }
+
+  /* FORM */
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--cream);
+    border: 1px solid var(--light-stone);
+    border-radius: 0;
+    padding: 14px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--deep);
+    transition: border-color 0.3s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select { cursor: pointer; }
+  .form-submit {
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+  .form-submit button {
+    padding: 16px 52px;
+    background: var(--deep);
+    border: 1px solid var(--deep);
+    color: var(--warm-white);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .form-submit button:hover { background: var(--accent); border-color: var(--accent); }
+  .form-note {
+    font-size: 0.72rem;
+    color: var(--stone);
+    line-height: 1.6;
+  }
+  .success-msg {
+    display: none;
+    padding: 20px 24px;
+    background: rgba(168,137,108,0.1);
+    border: 1px solid var(--accent);
+    color: var(--mid);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-top: 8px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--warm-white);
+    letter-spacing: 0.1em;
+  }
+  .footer-logo span { color: var(--stone); }
+  .footer-copy {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(197,184,168,0.5);
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(197,184,168,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* DIVIDER */
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--accent);
+    margin: 28px 0;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { height: 300px; }
+    .about-card { width: 200px; padding: 24px; }
+    .services-grid { grid-template-columns: 1fr; gap: 2px; }
+    .packages-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 56px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+  @media (max-width: 600px) {
+    .packages-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">HAVEN & HAZE</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Enquire</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Wedding Photography & Film · South Africa</p>
+    <h1>Haven<br><em>&amp; Haze</em></h1>
+    <p class="hero-sub">Photography · Content Creation · Videography</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn">Begin Your Story</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background: var(--cream); padding: 120px 60px;">
+  <div class="about reveal">
+    <div class="about-text">
+      <p class="section-label">Our Philosophy</p>
+      <h2 class="section-title">Every image should bring you back to the <em>feeling</em></h2>
+      <div class="divider"></div>
+      <p>At Haven & Haze, we focus on capturing pure, authentic moments as they naturally unfold — preserving the emotion, atmosphere, and fleeting details of your day. We have partnered with Chosen & Called Productions to offer videography, giving you the option of a seamlessly aligned visual experience.</p>
+      <p style="margin-top: 16px;">Our approach is thoughtful and unobtrusive. We aim to create a calm, enjoyable experience while preserving the memories you will treasure for a lifetime.</p>
+      <div style="margin-top: 48px;">
+        <a href="#contact" class="btn btn-dark">Enquire Now</a>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <div class="about-card-num">800+</div>
+        <div class="about-card-label">Edited Images Per Wedding</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num">3</div>
+        <div class="about-card-label">Passionate Creatives</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services-section">
+  <div class="services-inner">
+    <div class="services-header reveal">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Our <em>Services</em></h2>
+      <p>Three ways to capture and relive the most meaningful day of your life.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-icon">◎</span>
+        <h3>Photography</h3>
+        <p>Candid, emotive images that reflect not only how your wedding looked, but how it truly felt. Delivered in a natural, minimal editing style that stands the test of time.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◈</span>
+        <h3>Content Creation</h3>
+        <p>Real-time content tailored for social media — highlight reels and candid moments captured and ready to share, bringing your wedding to life online.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◉</span>
+        <h3>Videography</h3>
+        <p>In partnership with Chosen & Called Productions, we offer cinematic wedding films that complement your photography for a seamless, beautifully aligned visual story.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages" class="packages-section">
+  <div class="packages-inner">
+    <div class="packages-header reveal">
+      <p class="section-label">Investment</p>
+      <h2 class="section-title" style="color: var(--warm-white);">Our <em style="color: var(--stone)">Packages</em></h2>
+      <p>All packages include a complimentary engagement shoot & planning session. Prices shown are from Photo Only — Photo & Film options also available.</p>
+    </div>
+    <div class="packages-grid reveal">
+
+      <div class="pkg-card">
+        <div class="pkg-name">The Promise</div>
+        <div class="pkg-subtitle">Conservative Package</div>
+        <div class="pkg-from">From</div>
+        <div class="pkg-price">R7,200</div>
+        <ul class="pkg-features">
+          <li>6 Hours Coverage</li>
+          <li>1 Photographer</li>
+          <li>±420 Edited Images</li>
+          <li>From Ceremony Only</li>
+          <li>Engagement Shoot</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Enquire</a>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-name">The Keepsake</div>
+        <div class="pkg-subtitle">Middle Ground Package</div>
+        <div class="pkg-from">From</div>
+        <div class="pkg-price">R8,800</div>
+        <ul class="pkg-features">
+          <li>8 Hours Coverage</li>
+          <li>1 Photographer</li>
+          <li>±650 Edited Images</li>
+          <li>Full Day Flexibility</li>
+          <li>Engagement Shoot</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Enquire</a>
+      </div>
+
+      <div class="pkg-card featured">
+        <div class="pkg-featured-badge">Most Popular</div>
+        <div class="pkg-name">The Heirloom</div>
+        <div class="pkg-subtitle">Our Most Famous Package</div>
+        <div class="pkg-from">From</div>
+        <div class="pkg-price">R12,000</div>
+        <ul class="pkg-features">
+          <li>8 Hours Coverage</li>
+          <li>2 Photographers</li>
+          <li>±800 Edited Images</li>
+          <li>Full Day Flexibility</li>
+          <li>Engagement Shoot</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Enquire</a>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-name">The Collective</div>
+        <div class="pkg-subtitle">Full Day Package</div>
+        <div class="pkg-from">From</div>
+        <div class="pkg-price">R14,500</div>
+        <ul class="pkg-features">
+          <li>10 Hours Coverage</li>
+          <li>2 Photographers</li>
+          <li>±1,000 Edited Images</li>
+          <li>Complete Full Day</li>
+          <li>Engagement Shoot</li>
+        </ul>
+        <a href="#contact" class="pkg-cta">Enquire</a>
+      </div>
+
+    </div>
+    <p style="text-align:center; color: rgba(197,184,168,0.5); font-size: 0.72rem; letter-spacing: 0.1em; margin-top: 40px;">Content creation add-ons & videography bundles available. Enquire for full details.</p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="team-section">
+  <div class="team-inner">
+    <div class="team-header reveal">
+      <p class="section-label">The People Behind the Lens</p>
+      <h2 class="section-title">Meet the <em>Team</em></h2>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <div class="team-avatar" style="background: var(--mid);">L</div>
+        <div class="team-name">Liza-Ann</div>
+        <div class="team-role">Lead Photographer · Haven & Haze</div>
+        <p class="team-bio">The creative heart of Haven & Haze, Liza-Ann brings a passion for capturing meaningful moments and genuine emotion. In her free time she enjoys quality time with her fiancé, family, and musical festivals.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: #8A7060;">V</div>
+        <div class="team-name">Vincent</div>
+        <div class="team-role">Second Shooter & Content Creator</div>
+        <p class="team-bio">Vincent joins as second shooter and content creation, bringing an eye for candid detail. When not behind a camera, he's a Quality Assurance Systems Engineer who loves the outdoors.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: var(--accent);">M</div>
+        <div class="team-name">Melissa</div>
+        <div class="team-role">Videographer · Chosen & Called Productions</div>
+        <p class="team-bio">Melissa brings your story to life through film. A wife, mother, and marketing professional by day, she pursues videography with passion — and loves musicals and singing in her spare time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <p class="section-label">Get in Touch</p>
+      <h2>Let's talk about your <em>day</em></h2>
+      <div class="divider"></div>
+      <p>We'd love to hear about your wedding and help you find the perfect package. Send us a message and we'll be in touch within 48 hours.</p>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <span class="contact-item-icon">✉</span>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Photography</div>
+            <div class="contact-item-value"><a href="mailto:havenandhaze.photo@gmail.com">havenandhaze.photo@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">✆</span>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Liza · Haven & Haze</div>
+            <div class="contact-item-value"><a href="tel:+27632970111">063 297 0111</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">✉</span>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Videography</div>
+            <div class="contact-item-value"><a href="mailto:chosenandcalled99@gmail.com">chosenandcalled99@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">✆</span>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Melissa · Chosen & Called</div>
+            <div class="contact-item-value"><a href="tel:+27823938886">082 393 8886</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="fname" required placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" name="lname" required placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="jane@example.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="0XX XXX XXXX">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="wdate">Wedding Date</label>
+            <input type="date" id="wdate" name="wdate">
+          </div>
+          <div class="form-group">
+            <label for="package">Package Interest</label>
+            <select id="package" name="package">
+              <option value="">— Select —</option>
+              <option>The Promise (from R7,200)</option>
+              <option>The Keepsake (from R8,800)</option>
+              <option>The Heirloom (from R12,000)</option>
+              <option>The Collective (from R14,500)</option>
+              <option>Not Sure Yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="services">Services Required</label>
+          <select id="services" name="services">
+            <option value="">— Select —</option>
+            <option>Photography Only</option>
+            <option>Photography + Videography</option>
+            <option>Photography + Content Creation</option>
+            <option>All Services</option>
+            <option>Unsure — Please advise</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="venue">Venue / Location</label>
+          <input type="text" id="venue" name="venue" placeholder="Venue name or city">
+        </div>
+        <div class="form-group">
+          <label for="message">Tell Us About Your Day</label>
+          <textarea id="message" name="message" placeholder="Share a little about your wedding vision, any specific moments you want captured, or any questions you have…"></textarea>
+        </div>
+        <p class="form-note">* Required fields. We'll respond within 48 hours.</p>
+        <div class="form-submit">
+          <button type="submit">Send Enquiry</button>
+        </div>
+        <div class="success-msg" id="successMsg">
+          Thank you for reaching out! Your enquiry has been sent to Haven & Haze. We'll be in touch within 48 hours to chat about your special day. ✦
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">HAVEN & HAZE <span>| Chosen & Called</span></div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#packages">Packages</a>
+    <a href="#team">Team</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Haven & Haze · All rights reserved</div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Contact form — mailto fallback (works without a backend)
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const f = this;
+    const fname = f.fname.value;
+    const lname = f.lname.value;
+    const email = f.email.value;
+    const phone = f.phone.value || 'Not provided';
+    const wdate = f.wdate.value || 'Not yet decided';
+    const pkg = f.package.value || 'Not specified';
+    const services = f.services.value || 'Not specified';
+    const venue = f.venue.value || 'Not specified';
+    const message = f.message.value || '';
+
+    const subject = encodeURIComponent(`Wedding Enquiry – ${fname} ${lname}`);
+    const body = encodeURIComponent(
+`Hello Liza,
+
+I would like to enquire about your wedding photography services.
+
+NAME: ${fname} ${lname}
+EMAIL: ${email}
+PHONE: ${phone}
+WEDDING DATE: ${wdate}
+PACKAGE INTEREST: ${pkg}
+SERVICES REQUIRED: ${services}
+VENUE / LOCATION: ${venue}
+
+MESSAGE:
+${message}
+
+Looking forward to hearing from you.
+${fname}`
+    );
+
+    // Open mailto
+    window.location.href = `mailto:havenandhaze.photo@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show success message
+    document.getElementById('successMsg').style.display = 'block';
+    f.reset();
+    document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+</script>
+</body>
+</html>
